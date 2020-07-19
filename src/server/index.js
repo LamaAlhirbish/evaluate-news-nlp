@@ -47,14 +47,16 @@ app.post('/test', function (req, res) {
     textapi.sentiment({
         'text': req.body.formText
         }, function(err, response) {
-                if (err === null) {
-                projectData.polarity = response.polarity;
-                projectData.subjectivity = response.subjectivity;
-                projectData.text = response.text;
-                projectData.polarity_confidence = response.polarity_confidence;
-                projectData.subjectivity_confidence = response.subjectivity_confidence;
-                res.send(projectData)
-                console.log(`post projectData ${projectData}`);
-            }
-    });
+                if (err) {
+                    console.log(err);
+                } else {
+                    projectData.polarity = response.polarity;
+                    projectData.subjectivity = response.subjectivity;
+                    projectData.text = response.text;
+                    projectData.polarity_confidence = response.polarity_confidence;
+                    projectData.subjectivity_confidence = response.subjectivity_confidence;
+                    res.send(projectData)
+                    console.log(`post projectData ${projectData}`);
+                }
+        });
 })
